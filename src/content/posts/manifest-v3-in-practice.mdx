@@ -1,0 +1,90 @@
+---
+title: "What Manifest V3 actually changes about building Chrome extensions"
+summary: "MV3 isn't a config migration. It changes the runtime model, and most of the friction comes from the one thing nobody mentions up front."
+date: "2026-01-21"
+tags: ["Chrome MV3", "Plasmo", "React"]
+draft: false
+---
+
+If you've only read the migration guide, Manifest V3 looks like paperwork:
+rename a few keys, swap `background.scripts` for `background.service_worker`,
+move to `chrome.action`. Then you build one and find out the interesting part
+wasn't in the diff.
+
+## Your background page is gone, not renamed
+
+MV2 gave you a persistent background page — a long-lived context you could keep
+state in. MV3 replaces it with a service worker that the browser will terminate
+whenever it feels like it, typically after about thirty seconds of inactivity.
+
+This breaks a specific, very common pattern: module-scope state.
+
+```ts
+// MV2: fine. MV3: a bug that only shows up after 30 idle seconds.
+let cachedToken: string | null = null;
+
+export async function getToken() {
+  if (!cachedToken) cachedToken = await fetchToken();
+  return cachedToken;
+}
+```
+
+It works in development, because you're constantly poking the extension and the
+worker never sleeps. It fails in production for the user who leaves the tab open
+over lunch. Every piece of state that needs to outlive a single event has to
+live in `chrome.storage`, and every entry point has to assume it's starting from
+nothing.
+
+Same story for timers. `setTimeout` past the termination window doesn't fire —
+`chrome.alarms` is the replacement, with a floor on how frequently it can run.
+
+## Three runtimes that can't see each other
+
+An extension isn't one app. It's a service worker, content scripts injected into
+pages, and popup/options pages — each with a separate lifecycle, separate
+bundle, and no shared memory. The only way across is message passing.
+
+The mistake is treating this as an inconvenience to paper over with a global
+store. It isn't; it's the architecture. What helped us was deciding early, per
+piece of state, which context *owns* it, and making the others ask:
+
+- The service worker owns anything needing auth or a network call.
+- Content scripts own anything about the current DOM.
+- The popup owns nothing. It renders what it's told and sends intents.
+
+Once that's written down, the messaging stops feeling like plumbing and starts
+being an actual API boundary.
+
+## No remote code, and it's enforced
+
+MV3 blocks executing code fetched at runtime. Practically: no CDN scripts, no
+`eval`, and no libraries that construct functions from strings. A dependency
+that works everywhere else can fail review because of a transitive package doing
+something clever.
+
+This is worth checking before you're attached to a library, not after.
+
+## The tooling is most of the pain
+
+Everything above is inherent to MV3. The rest — bundling three entry points with
+different formats, wiring HMR into a context the browser reloads on its own
+terms, keeping the manifest in sync with the files that exist — is incidental,
+and it eats a surprising amount of a project.
+
+We standardised on [Plasmo](https://www.plasmo.com/) for this. File-system
+conventions determine what becomes a content script, a popup or a background
+worker; the manifest is generated; live reload works, including for content
+scripts. It's opinionated in ways you'll occasionally fight, and that trade was
+clearly worth it: the build config stopped being a thing anyone thought about.
+
+The other benefit was less obvious. Because Plasmo is React-first, extension
+code shared idioms with our web apps. The same developer could move between them
+without relearning a toolchain — which matters more on a small team than any
+individual build feature.
+
+## The short version
+
+Treat MV3 as a runtime change, not a config change. Assume the background
+context dies constantly, put every durable piece of state in `chrome.storage`,
+decide explicitly which context owns what, and let a framework handle the
+bundling so your time goes into the product.

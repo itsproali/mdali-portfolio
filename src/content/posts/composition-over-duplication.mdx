@@ -1,0 +1,107 @@
+---
+title: "Composition over duplication: shipping 500 video templates"
+summary: "Template #1 is easy however you build it. Template #200 is where the architecture decision you made on day one either pays you or bills you."
+date: "2026-04-02"
+tags: ["TypeScript", "Remotion", "DX"]
+draft: false
+---
+
+We needed hundreds of video templates. Not variations on a theme — genuinely
+different looks, timings and structures, each one something a customer would
+pick because it fit their brand.
+
+The naive approach gets you there. Write a Remotion composition per template,
+ship it, repeat. It's fast for the first few and it's how most people start,
+including us.
+
+## Where duplication starts charging interest
+
+Around template 40, three things happened at once.
+
+A bug in a text-reveal animation turned out to exist in thirty templates,
+because thirty templates had copy-pasted the same twenty lines. Fixing it meant
+thirty edits and thirty chances to miss one.
+
+Adding a global feature — brand colour overrides, say — meant touching every
+template that rendered text. There was no single place where "how text appears"
+lived.
+
+And onboarding anyone new meant explaining thirty slightly different dialects of
+the same idea, because each template's author had solved timing their own way.
+
+None of this is a surprise. It's just duplication doing what duplication does:
+charging you later, in proportion to how much of it you accumulated.
+
+## The alternative we rejected first
+
+The reflex fix is a config-driven mega-template: one composition, a big JSON
+schema, every template expressed as data.
+
+We tried a version of this and backed out. The schema becomes the product. Every
+new visual idea is a new flag, flags interact, and you end up with a
+configuration language that's Turing-incomplete but complicated enough to need
+its own documentation. Worse, the data is opaque to the compiler — a malformed
+template is a runtime surprise, not a build error.
+
+## Typed primitives instead
+
+What worked was treating templates as *code composed from vetted parts*, not as
+data.
+
+We built a component library of motion primitives: transitions, text reveals,
+layout frames, timing helpers, brand-token consumers. Each one typed, each one
+with a single implementation. A template became an arrangement of these:
+
+```tsx
+export const ProductLaunch: Template = () => (
+  <Scene duration={frames(4)}>
+    <Backdrop token="brand.surface" />
+    <StaggerText
+      lines={["Introducing", "the new one"]}
+      reveal="mask-up"
+      stagger={frames(0.12)}
+    />
+    <LogoLockup placement="bottom-right" enter="fade" />
+  </Scene>
+);
+```
+
+Three properties of that fell out for free:
+
+**Fixes propagate.** The text-reveal bug is fixed in `StaggerText`, once, for
+every template that uses it.
+
+**The compiler is the reviewer.** `reveal="mask-up"` is a union type. A typo is a
+build error, not a template that renders wrong in production three weeks later.
+
+**Templates stop being specialist work.** Composing from documented primitives
+with autocomplete is a different skill from writing raw animation timing. The
+marginal cost of a template dropped far enough that it stopped being a
+bottleneck on one person.
+
+We went from zero to 500+ templates in production. The primitives library is
+maybe 5% of the code and carries most of the behaviour.
+
+## What it costs you
+
+This isn't free, and it's worth being honest about the trade.
+
+The first templates are *slower*. You're building the library and the template
+at the same time, and you don't yet know which abstractions are right. Doing
+this on day one, before you've built anything, is how you get abstractions that
+fit nothing.
+
+You also need the discipline to say no. Every "just add a prop for this one
+case" is a small tax on the primitive's clarity. Some of those requests should
+become a new primitive; some should be an escape hatch that drops to raw
+Remotion; a few should just be declined.
+
+## When to make the call
+
+The pattern generalises past video. Anywhere you're producing many artifacts
+that are visibly different but structurally similar — email templates, report
+layouts, dashboard widgets, onboarding flows — the same curve applies.
+
+Build the first handful by hand. Watch for the third time you copy-paste the
+same block. That's the signal, and it usually shows up earlier than it feels
+like it should.

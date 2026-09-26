@@ -1,0 +1,91 @@
+---
+title: "Cutting video render time and cost in half with Lambda fan-out"
+summary: "Rendering a video on one machine means paying for wall-clock time you didn't need. Splitting it at the frame boundary changes the economics entirely."
+date: "2026-06-18"
+tags: ["AWS", "Remotion", "Architecture"]
+draft: false
+---
+
+The first version of our render pipeline was the obvious one. A job came in, a
+worker picked it up, Remotion rendered every frame in sequence, FFmpeg stitched
+the result, and the file landed in S3. It worked. It was also the most expensive
+thing we ran.
+
+The problem wasn't the renderer. It was the shape of the work.
+
+## Wall-clock time you're paying for anyway
+
+A two-minute video at 30fps is 3,600 frames. Rendered sequentially, that's
+3,600 units of work happening one after another on a machine you're billed for
+the entire time. Double the video length and you double both the wait and the
+bill. Worse, a single long job holds the worker hostage — a ten-second clip
+queued behind a three-minute one waits for the three-minute one to finish.
+
+Scaling vertically doesn't fix this. A faster box renders each frame a little
+quicker, but the work is still serial, the cost per render still tracks video
+length, and the queue still blocks.
+
+## Rendering is embarrassingly parallel
+
+Here's the thing about frames: with a deterministic renderer, frame 1,800
+doesn't need frame 1,799 to exist. Each frame is a pure function of the
+composition and a timestamp. Nothing is shared, nothing is sequential — the
+serialism was an artifact of how we'd written it, not a property of the problem.
+
+Which means the work can be split:
+
+1. Chunk the frame range into batches.
+2. Invoke a Lambda per batch, each rendering its frames straight to S3.
+3. When every chunk reports done, stitch and encode.
+4. Upload the finished file, clean up the intermediates.
+
+Wall-clock time stops being a function of video length and becomes a function of
+concurrency. A three-minute video and a ten-second video finish in roughly the
+same time, because the three-minute one just uses more Lambdas.
+
+## Why the billing model matters more than the speed
+
+The speed-up is the headline, but the cost change is the part that actually
+moved the number.
+
+On a persistent worker you pay for an instance-hour whether it's rendering or
+idling between jobs. Traffic like ours is spiky — quiet for twenty minutes, then
+forty jobs at once — so you're either over-provisioned most of the day or
+queueing badly during bursts.
+
+Lambda inverts that. You pay per invocation for the milliseconds you actually
+use. Total compute across all the chunks is roughly the same as the serial
+render, but you stop paying for the gaps, the idle capacity, and the
+over-provisioning you needed to survive the peaks. Combined with the time
+savings, render time and render cost both came down by about half.
+
+## The parts that bite
+
+**Cold starts.** The first invocations in a burst are slower. Ours are big
+functions — a headless browser is not a small dependency. Keeping chunk sizes
+large enough that startup is a small fraction of the invocation amortises it.
+
+**Concurrency limits.** Lambda's account-level concurrency is a real ceiling,
+and an unbounded fan-out will eat it and starve everything else in the account.
+Cap the fan-out per job, and give rendering its own reserved concurrency so one
+runaway video can't take out the rest of the platform.
+
+**Partial failure.** With one worker, a failure fails the job. With sixty, one
+chunk can fail while fifty-nine succeed. You need per-chunk retries and a
+coordinator that knows the difference between "still working" and "silently
+lost" — a chunk that never reports back is not the same as one that errored.
+
+**Stitching is still serial.** Concatenating and encoding happens in one place,
+and past a certain point it becomes the bottleneck. Rendering to an intermediate
+format that concatenates cheaply keeps this step from eating the gains.
+
+**Storage churn.** Thousands of intermediate frames per job add up fast. An S3
+lifecycle rule on the temp prefix is not optional; it's the difference between a
+storage bill that's rounding error and one that isn't.
+
+## The general shape
+
+The specific lesson is about video. The general one isn't: before scaling a
+machine up, check whether the work is actually serial or just written that way.
+If the unit of work is pure and independent, you can usually move the parallelism
+boundary — and when you do, the billing model often changes in your favour too.
