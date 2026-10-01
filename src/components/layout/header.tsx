@@ -103,7 +103,7 @@ export function Header() {
                   <span
                     aria-hidden
                     className={cn(
-                      "bg-gradient-accent absolute inset-x-3.5 -bottom-px h-[2px] rounded-full transition-[opacity,transform] duration-300",
+                      "bg-gradient-accent absolute inset-x-3.5 -bottom-px h-[2px] rounded-full transition-[opacity,scale] duration-300",
                       isActive ? "opacity-100" : "scale-x-0 opacity-0",
                     )}
                   />

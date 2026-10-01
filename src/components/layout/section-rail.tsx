@@ -27,7 +27,7 @@ export function SectionRail() {
               >
                 <span
                   className={cn(
-                    "label translate-x-1 opacity-0 transition-[opacity,transform,color] duration-300 group-hover:translate-x-0 group-hover:opacity-100",
+                    "label translate-x-1 opacity-0 transition-[opacity,translate,color] duration-300 group-hover:translate-x-0 group-hover:opacity-100",
                     isActive ? "text-fg" : "text-fg-subtle",
                   )}
                 >

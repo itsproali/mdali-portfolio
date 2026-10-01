@@ -5,7 +5,7 @@ type Variant = "primary" | "outline" | "ghost";
 
 const base =
   "group relative inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium tracking-tight " +
-  "h-11 px-5 transition-[background-color,border-color,color,transform] duration-200 select-none whitespace-nowrap active:scale-[0.98]";
+  "h-11 px-5 transition-[background-color,border-color,color,scale] duration-200 select-none whitespace-nowrap active:scale-[0.98]";
 
 const variants: Record<Variant, string> = {
   primary: "gradient-hover bg-fg text-bg border border-fg",

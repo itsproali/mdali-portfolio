@@ -86,7 +86,7 @@ export function ProjectCard({ project }: { project: Project }) {
             {project.kind} · {project.year}
           </p>
         </div>
-        <span className="mt-1 inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-line text-fg-subtle transition-[color,border-color,transform] duration-300 group-hover:border-accent group-hover:text-accent">
+        <span className="mt-1 inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-line text-fg-subtle transition-[color,border-color] duration-300 group-hover:border-accent group-hover:text-accent">
           <ArrowUpRight
             className="size-3.5 transition-transform duration-300 group-hover:translate-x-px group-hover:-translate-y-px"
             strokeWidth={2}

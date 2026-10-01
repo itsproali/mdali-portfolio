@@ -19,7 +19,7 @@ export function Skills() {
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {coreSkills.map((skill, i) => (
             <Reveal as="li" key={skill.name} delay={i * 0.05}>
-              <div className="acrylic acrylic-card group relative flex aspect-[4/3] flex-col justify-between rounded-2xl border border-line p-5 transition-[border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-accent-line sm:p-6">
+              <div className="acrylic acrylic-card group relative flex aspect-[4/3] flex-col justify-between rounded-2xl border border-line p-5 transition-[border-color,translate] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-accent-line sm:p-6">
                 <BrandIcon
                   icon={skill.icon}
                   custom={skill.custom}

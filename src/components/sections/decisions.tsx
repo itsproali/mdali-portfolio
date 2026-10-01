@@ -75,7 +75,7 @@ export function Decisions() {
                     <span
                       aria-hidden
                       className={cn(
-                        "mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-full border transition-[border-color,color,transform,background-color] duration-300",
+                        "mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-full border transition-[border-color,color,rotate,background-color] duration-300",
                         isOpen
                           ? "rotate-180 border-accent bg-accent text-accent-fg"
                           : "border-line text-fg-subtle group-hover:border-fg group-hover:text-fg",
