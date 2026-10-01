@@ -47,7 +47,7 @@ export function Hero() {
               </span>
               <span className="rise" style={line(2)}>
                 <span>
-                  <em className="pr-[0.06em] text-accent italic">team lead</em>.
+                  <em className="text-gradient pr-[0.08em] italic">team lead</em>.
                 </span>
               </span>
             </h1>

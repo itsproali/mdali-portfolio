@@ -1,15 +1,15 @@
 /**
- * Fixed page backdrop: a faint dot grid with a soft accent wash at the top.
- * Purely decorative — nothing interactive lives behind the content.
+ * Fixed page backdrop: a faint dot grid with a soft, slowly drifting colour
+ * mesh at the top. Purely decorative — nothing interactive lives behind it.
  */
 export function Backdrop() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 select-none"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
     >
+      <div className="mesh absolute inset-x-0 -top-24 h-[48rem]" />
       <div className="dot-grid absolute inset-0" />
-      <div className="absolute inset-x-0 top-0 h-[42rem] bg-[radial-gradient(60%_60%_at_50%_0%,var(--accent-soft),transparent_70%)]" />
     </div>
   );
 }

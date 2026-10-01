@@ -8,8 +8,7 @@ const base =
   "h-11 px-5 transition-[background-color,border-color,color,transform] duration-200 select-none whitespace-nowrap active:scale-[0.98]";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-fg text-bg border border-fg hover:bg-accent hover:border-accent hover:text-accent-fg",
+  primary: "gradient-hover bg-fg text-bg border border-fg",
   outline:
     "border border-line-strong text-fg bg-transparent hover:border-fg hover:bg-surface",
   ghost: "text-fg-muted hover:text-fg hover:bg-surface-hover border border-transparent",

@@ -10,6 +10,7 @@ import { headerLinks, navItems, siteConfig, socials } from "@/content/site";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
+import { Logo } from "@/components/ui/logo";
 import { ThemeToggle } from "./theme-toggle";
 
 const sectionIds = navItems.map((n) => n.id);
@@ -76,10 +77,7 @@ export function Header() {
             href="/"
             className="group flex items-center gap-3 text-[15px] font-medium tracking-tight"
           >
-            <span className="relative flex size-2">
-              <span className="animate-ping-slow absolute inline-flex size-full rounded-full bg-accent" />
-              <span className="relative inline-flex size-2 rounded-full bg-accent" />
-            </span>
+            <Logo className="size-8 drop-shadow-[0_2px_8px_var(--glow-1)]" />
             <span className="text-fg transition-colors group-hover:text-accent">
               {siteConfig.name}
             </span>
@@ -105,7 +103,7 @@ export function Header() {
                   <span
                     aria-hidden
                     className={cn(
-                      "absolute inset-x-3.5 -bottom-px h-px rounded-full bg-accent transition-[opacity,transform] duration-300",
+                      "bg-gradient-accent absolute inset-x-3.5 -bottom-px h-[2px] rounded-full transition-[opacity,transform] duration-300",
                       isActive ? "opacity-100" : "scale-x-0 opacity-0",
                     )}
                   />
@@ -122,7 +120,7 @@ export function Header() {
               href={siteConfig.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden h-10 items-center gap-1.5 rounded-full bg-fg pr-3.5 pl-4 text-sm font-medium text-bg transition-colors hover:bg-accent hover:text-accent-fg sm:inline-flex"
+              className="gradient-hover hidden h-10 items-center gap-1.5 rounded-full bg-fg pr-3.5 pl-4 text-sm font-medium text-bg transition-colors sm:inline-flex"
             >
               Resume
               <ArrowUpRight className="size-3.5" strokeWidth={2} />
@@ -146,7 +144,8 @@ export function Header() {
                   <Dialog.Title className="sr-only">Navigation</Dialog.Title>
 
                   <div className="flex h-16 shrink-0 items-center justify-between px-5 sm:px-8">
-                    <span className="text-[15px] font-medium tracking-tight">
+                    <span className="flex items-center gap-3 text-[15px] font-medium tracking-tight">
+                      <Logo className="size-8" />
                       {siteConfig.name}
                     </span>
                     <Dialog.Close asChild>

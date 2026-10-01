@@ -12,37 +12,37 @@ export type Service = {
  */
 export const services: Service[] = [
   {
-    id: "saas",
+    id: "web",
     index: "01",
-    title: "SaaS Development",
+    title: "Web Development",
     summary:
-      "A subscription product built end to end — marketing site, app, API, billing and deployment — as one typed Next.js and Node codebase that's ready to take paying users.",
+      "Production web applications end to end — interface, API, database and deployment — as one typed Next.js and Node codebase that's fast on real devices and easy to keep extending.",
     deliverables: [
       "Next.js app with server-first, typed data access",
       "REST API in Node.js or NestJS",
       "PostgreSQL + Prisma schema and migrations",
-      "Auth (NextAuth), Stripe subscriptions and webhooks",
+      "Accessible, responsive UI down to 320px",
       "Dockerised deploy on AWS or Vercel with CI",
     ],
   },
   {
-    id: "video",
+    id: "ai-saas",
     index: "02",
-    title: "AI Video & Rendering Pipelines",
+    title: "AI Powered SaaS",
     summary:
-      "Programmatic video at scale: Remotion template systems, distributed cloud rendering and the tooling around them — the work behind a 500-template catalog and a 50% render-cost cut.",
+      "Subscription products with AI at the core — from prompt to rendered output — including the billing, auth and background pipelines that make them ready for paying users.",
     deliverables: [
-      "Composable Remotion motion component libraries",
-      "Template systems driven by data and AI output",
-      "Parallel rendering on AWS Lambda with S3 + FFmpeg",
-      "Render cost and wall-clock optimisation",
-      "Browser-based editors with live preview",
+      "AI generation flows wired to your model provider",
+      "Programmatic video with Remotion and FFmpeg",
+      "Parallel rendering on AWS Lambda with S3",
+      "Auth (NextAuth), Stripe subscriptions and webhooks",
+      "Usage metering, queues and cost optimisation",
     ],
   },
   {
     id: "extensions",
     index: "03",
-    title: "Browser Extensions",
+    title: "Browser Extension",
     summary:
       "Production Chrome extensions on Manifest V3 — in-page tooling, side panels and background workers that talk to your API, shipped through the Web Store.",
     deliverables: [
@@ -54,16 +54,16 @@ export const services: Service[] = [
     ],
   },
   {
-    id: "maintenance",
+    id: "custom",
     index: "04",
-    title: "Rescue & Maintenance",
+    title: "Custom Software",
     summary:
-      "Taking over an existing codebase that's slow, brittle or half-finished — stabilising it, paying down the debt that matters, and keeping it shipping.",
+      "Bespoke tools for a specific workflow — internal dashboards, automation, integrations, or taking over a codebase that's slow or half-finished and keeping it shipping.",
     deliverables: [
+      "Internal dashboards and admin tooling",
+      "Third-party integrations and automation",
       "Codebase audit with a prioritised fix list",
-      "Performance and infrastructure-cost optimisation",
-      "Dependency, security and framework upgrades",
-      "CI/CD setup and release process",
+      "Performance and infrastructure-cost work",
       "Ongoing retainer support",
     ],
   },

@@ -32,6 +32,17 @@
   --acrylic-tint: rgba(247, 245, 240, 0.72);
   --acrylic-highlight: rgba(255, 255, 255, 0.7);
   --acrylic-noise: 0.05;
+
+  /* Gradient system — cobalt → violet → pink. */
+  --g1: #2743e6;
+  --g2: #7c3aed;
+  --g3: #ec4899;
+  --gradient-accent: linear-gradient(135deg, var(--g1) 0%, var(--g2) 55%, var(--g3) 100%);
+  --mesh-1: rgba(39, 67, 230, 0.22);
+  --mesh-2: rgba(124, 58, 237, 0.18);
+  --mesh-3: rgba(236, 72, 153, 0.14);
+  --glow-1: rgba(39, 67, 230, 0.22);
+  --glow-2: rgba(236, 72, 153, 0.16);
   --shadow:
     0 1px 2px rgba(22, 21, 15, 0.04), 0 16px 40px -20px rgba(22, 21, 15, 0.22);
 }
@@ -64,6 +75,16 @@
   --acrylic-tint: rgba(11, 12, 16, 0.62);
   --acrylic-highlight: rgba(255, 255, 255, 0.07);
   --acrylic-noise: 0.08;
+
+  --g1: #8d9dff;
+  --g2: #c084fc;
+  --g3: #f9a8d4;
+  --gradient-accent: linear-gradient(135deg, var(--g1) 0%, var(--g2) 55%, var(--g3) 100%);
+  --mesh-1: rgba(141, 157, 255, 0.3);
+  --mesh-2: rgba(192, 132, 252, 0.22);
+  --mesh-3: rgba(249, 168, 212, 0.14);
+  --glow-1: rgba(141, 157, 255, 0.34);
+  --glow-2: rgba(249, 168, 212, 0.22);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 40px -20px rgba(0, 0, 0, 0.7);
 }
 
@@ -204,11 +225,70 @@
   text-transform: uppercase;
 }
 
+/* Gradient text — pad slightly so italic overhangs aren't clipped. */
+@utility text-gradient {
+  background-image: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-accent {
+  background-image: var(--gradient-accent);
+}
+
+/* Gradient fill that fades in on hover (background-image can't transition,
+   so it rides on a pseudo-element). */
+@utility gradient-hover {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    background-image: var(--gradient-accent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  &:hover {
+    color: #fff;
+    border-color: transparent;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
 /* Display serif: optical sizing is on, so large settings get the
    high-contrast cut and small ones stay sturdy. */
 .font-display {
   font-optical-sizing: auto;
   font-feature-settings: "ss01", "kern";
+}
+
+/* Colour mesh behind the top of the page: three soft blobs that drift. */
+.mesh {
+  background:
+    radial-gradient(42% 55% at 18% 18%, var(--mesh-1), transparent 70%),
+    radial-gradient(38% 50% at 62% 8%, var(--mesh-2), transparent 70%),
+    radial-gradient(34% 46% at 88% 36%, var(--mesh-3), transparent 70%);
+  filter: blur(28px);
+  animation: mesh-drift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes mesh-drift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, 2%, 0) scale(1.06);
+  }
 }
 
 /* Faint dot grid behind everything. */
@@ -266,8 +346,9 @@
   pointer-events: none;
   border-radius: inherit;
   background: radial-gradient(
-    440px circle at var(--mx) var(--my),
-    var(--accent-soft),
+    460px circle at var(--mx) var(--my),
+    var(--mesh-1) 0%,
+    var(--mesh-2) 32%,
     transparent 65%
   );
   opacity: 0;
@@ -321,7 +402,9 @@
 
 /* Soft glow behind the portrait. */
 .glow {
-  background: radial-gradient(closest-side, var(--glow), transparent 100%);
+  background:
+    radial-gradient(55% 55% at 30% 30%, var(--glow-1), transparent 72%),
+    radial-gradient(50% 50% at 75% 75%, var(--glow-2), transparent 72%);
   filter: blur(48px);
 }
 
@@ -425,7 +508,8 @@
     transform: none !important;
   }
 
-  .float {
+  .float,
+  .mesh {
     animation: none !important;
   }
 }
