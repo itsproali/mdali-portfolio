@@ -15,7 +15,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative scroll-mt-2 py-20 sm:-scroll-mt-5 sm:py-28 lg:-scroll-mt-9 lg:py-32",
+        "relative -scroll-mt-2 py-20 sm:-scroll-mt-9 sm:py-28 lg:-scroll-mt-13 lg:py-32",
         className,
       )}
     >
