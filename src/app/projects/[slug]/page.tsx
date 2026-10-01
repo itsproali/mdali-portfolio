@@ -10,7 +10,8 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { ActionLink } from "@/components/ui/action";
 import { ProjectCover } from "@/components/ui/project-cover";
-import { GithubIcon } from "@/components/ui/icons";
+import { BrandIcon } from "@/components/ui/brand-icon";
+import { siGithub } from "simple-icons";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -47,8 +48,41 @@ export default async function ProjectPage({ params }: Props) {
   const currentIndex = projects.findIndex((p) => p.slug === slug);
   const next = projects[(currentIndex + 1) % projects.length];
 
+  const url = `${siteConfig.url}/projects/${project.slug}`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${url}#work`,
+        name: project.title,
+        headline: `${project.title} — ${project.kind}`,
+        description: project.tagline,
+        url,
+        image: project.thumbnail ?? `${siteConfig.url}/opengraph-image`,
+        dateCreated: project.year.slice(0, 4),
+        inLanguage: "en",
+        keywords: project.stack.join(", "),
+        author: { "@id": `${siteConfig.url}/#person` },
+        ...(project.liveUrl ? { sameAs: project.liveUrl } : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+          { "@type": "ListItem", position: 2, name: "Work", item: `${siteConfig.url}/#work` },
+          { "@type": "ListItem", position: 3, name: project.title, item: url },
+        ],
+      },
+    ],
+  };
+
   return (
     <article className="pt-28 pb-24 sm:pt-36">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <Container>
         {/* Back */}
         <Reveal>
@@ -92,7 +126,7 @@ export default async function ProjectPage({ params }: Props) {
               )}
               {project.repoUrl && (
                 <ActionLink href={project.repoUrl} external variant="outline">
-                  <GithubIcon className="size-4" />
+                  <BrandIcon icon={siGithub} name="GitHub" className="size-4" />
                   Source
                 </ActionLink>
               )}

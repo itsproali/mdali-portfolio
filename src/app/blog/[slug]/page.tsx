@@ -44,8 +44,43 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound();
 
+  const url = `${siteConfig.url}/blog/${post.slug}`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${url}#article`,
+        headline: post.title,
+        description: post.summary,
+        datePublished: post.date,
+        dateModified: post.date,
+        inLanguage: "en",
+        keywords: post.tags.join(", "),
+        wordCount: post.content.trim().split(/\s+/).length,
+        url,
+        mainEntityOfPage: url,
+        author: { "@id": `${siteConfig.url}/#person` },
+        publisher: { "@id": `${siteConfig.url}/#person` },
+        image: `${siteConfig.url}/opengraph-image`,
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+          { "@type": "ListItem", position: 2, name: "Writing", item: `${siteConfig.url}/blog` },
+          { "@type": "ListItem", position: 3, name: post.title, item: url },
+        ],
+      },
+    ],
+  };
+
   return (
     <article className="pt-28 pb-24 sm:pt-36">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <Container>
         <div className="mx-auto max-w-3xl">
           <Reveal>

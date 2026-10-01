@@ -14,7 +14,6 @@ export type Project = {
   gallery?: string[];
   liveUrl?: string;
   repoUrl?: string;
-  featured: boolean;
   /** Accent used for the generative cover when there is no thumbnail. */
   cover: { from: string; to: string };
 };
@@ -56,7 +55,6 @@ export const projects: Project[] = [
       { label: "Team led", value: "5 engineers" },
     ],
     liveUrl: "https://vidrush.ai",
-    featured: true,
     cover: { from: "#FF6A2B", to: "#7C2D12" },
   },
   {
@@ -97,7 +95,6 @@ export const projects: Project[] = [
       "https://res.cloudinary.com/itsproali/image/upload/v1701538556/Portfolio/projects/qs_4_yx62zy.png",
     ],
     liveUrl: "https://www.1qualitysolutions.com/",
-    featured: true,
     cover: { from: "#2563EB", to: "#0F172A" },
   },
   {
@@ -139,7 +136,6 @@ export const projects: Project[] = [
     ],
     liveUrl: "https://mailrapido.com/",
     repoUrl: "https://github.com/itsproali/mailrapido",
-    featured: true,
     cover: { from: "#10B981", to: "#064E3B" },
   },
   {
@@ -180,7 +176,6 @@ export const projects: Project[] = [
       "https://res.cloudinary.com/itsproali/image/upload/v1701537319/Portfolio/projects/nextdoor_4_jflkyk.png",
     ],
     liveUrl: "https://nextdoorbd.vercel.app/",
-    featured: true,
     cover: { from: "#8B5CF6", to: "#2E1065" },
   },
   {
@@ -223,12 +218,9 @@ export const projects: Project[] = [
     ],
     liveUrl: "https://job-ledder.web.app/",
     repoUrl: "https://github.com/itsproali/jobs-ladder-client",
-    featured: false,
     cover: { from: "#F59E0B", to: "#78350F" },
   },
 ];
-
-export const featuredProjects = projects.filter((p) => p.featured);
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);

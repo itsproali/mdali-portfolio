@@ -27,7 +27,6 @@
   --accent-line: rgba(39, 67, 230, 0.32);
 
   --dot: rgba(22, 21, 15, 0.1);
-  --glow: rgba(39, 67, 230, 0.16);
   --selection: rgba(39, 67, 230, 0.18);
   --acrylic-tint: rgba(247, 245, 240, 0.72);
   --acrylic-highlight: rgba(255, 255, 255, 0.7);
@@ -72,7 +71,6 @@
   --accent-line: rgba(141, 157, 255, 0.4);
 
   --dot: rgba(241, 239, 232, 0.07);
-  --glow: rgba(141, 157, 255, 0.3);
   --selection: rgba(141, 157, 255, 0.28);
   --acrylic-tint: rgba(11, 12, 16, 0.62);
   --acrylic-highlight: rgba(255, 255, 255, 0.07);
@@ -122,10 +120,6 @@
 
   --shadow-soft: var(--shadow);
 
-  --text-display: clamp(2.9rem, 0.9rem + 7.6vw, 7.75rem);
-  --text-display--line-height: 0.98;
-  --text-display--letter-spacing: -0.02em;
-
   --text-hero: clamp(3.25rem, 1rem + 8.4vw, 8.75rem);
   --text-hero--line-height: 0.92;
   --text-hero--letter-spacing: -0.025em;
@@ -164,7 +158,6 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
   }
 
   body {

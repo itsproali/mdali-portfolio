@@ -4,10 +4,7 @@ import { linkedinMark } from "./brand-marks";
 
 export const siteConfig = {
   name: "Mohammad Ali",
-  shortName: "Ali",
-  handle: "itsproali",
   role: "Full-Stack Developer & Team Lead",
-  roleShort: "Full-Stack Developer",
   tagline:
     "I design, build and ship production web applications — TypeScript end to end, from the interface down to the render pipeline.",
   description:
@@ -19,7 +16,6 @@ export const siteConfig = {
   phone: "+880 1884622861",
   phoneHref: "+8801884622861",
   location: "Dhaka, Bangladesh",
-  locationLong: "Sarulia, Demra, Dhaka, Bangladesh — 1361",
   timezone: "GMT+6",
 
   avatar: "/images/mohammad-ali.png",
@@ -27,31 +23,26 @@ export const siteConfig = {
     "https://drive.google.com/file/d/1qVQ1OLO-5RxHy1rwbe5Ib9igCTfeO99f/view?usp=drive_link",
 
   available: true,
-  availabilityNote: "Open to full-time roles and select freelance work",
 } as const;
 
 export const socials = [
   {
     label: "GitHub",
-    handle: "@itsproali",
     href: "https://github.com/itsproali",
     icon: siGithub,
   },
   {
     label: "LinkedIn",
-    handle: "in/itsproali",
     href: "https://www.linkedin.com/in/itsproali/",
     custom: linkedinMark,
   },
   {
     label: "X",
-    handle: "@itsproali",
     href: "https://twitter.com/itsproali",
     icon: siX,
   },
   {
     label: "Facebook",
-    handle: "@itsproali",
     href: "https://www.facebook.com/itsproali/",
     icon: siFacebook,
   },

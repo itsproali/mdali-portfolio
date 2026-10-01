@@ -38,7 +38,7 @@ import {
 
 import { awsMark, plasmoMark, remotionMark, type Mark } from "./brand-marks";
 
-export type Skill = {
+type Skill = {
   name: string;
   /** Brand mark from simple-icons. */
   icon?: SimpleIcon;
@@ -48,7 +48,7 @@ export type Skill = {
   mark?: string;
 };
 
-export type SkillGroup = {
+type SkillGroup = {
   id: string;
   title: string;
   items: Skill[];

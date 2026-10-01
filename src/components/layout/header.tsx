@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -24,6 +24,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  /** While set in the future, scroll-down won't hide the bar (anchor jumps). */
+  const pinnedUntil = useRef(0);
   const pathname = usePathname();
   const onHome = pathname === "/";
   const active = useActiveSection(sectionIds);
@@ -39,7 +41,8 @@ export function Header() {
       const y = window.scrollY;
       const delta = y - lastY;
       setScrolled(y > 8);
-      if (y < 80) setHidden(false);
+      if (Date.now() < pinnedUntil.current) setHidden(false);
+      else if (y < 80) setHidden(false);
       else if (delta > 6) setHidden(true);
       else if (delta < -6) setHidden(false);
       lastY = y;
@@ -58,6 +61,10 @@ export function Header() {
   }, []);
 
   const href = (id: string) => (onHome ? `#${id}` : `/#${id}`);
+  const pin = () => {
+    pinnedUntil.current = Date.now() + 1200;
+    setHidden(false);
+  };
   const links = navItems.filter((n) =>
     headerLinks.includes(n.id as (typeof headerLinks)[number]),
   );
@@ -91,6 +98,7 @@ export function Header() {
                 <a
                   key={item.id}
                   href={href(item.id)}
+                  onClick={pin}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
                     "relative rounded-full px-3.5 py-2 text-sm transition-colors",

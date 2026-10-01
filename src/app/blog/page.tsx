@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
+import { siteConfig } from "@/content/site";
 import { getAllPosts } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
@@ -12,6 +13,13 @@ export const metadata: Metadata = {
   description:
     "Notes on rendering pipelines, TypeScript architecture, browser extensions and shipping production web software.",
   alternates: { canonical: "/blog" },
+  openGraph: {
+    type: "website",
+    title: `Writing — ${siteConfig.name}`,
+    description:
+      "Notes on rendering pipelines, TypeScript architecture, browser extensions and shipping production web software.",
+    url: `${siteConfig.url}/blog`,
+  },
 };
 
 export default function BlogIndexPage() {

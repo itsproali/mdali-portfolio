@@ -4,7 +4,7 @@ import matter from "gray-matter";
 
 const POSTS_DIR = path.join(process.cwd(), "src/content/posts");
 
-export type PostMeta = {
+type PostMeta = {
   slug: string;
   title: string;
   summary: string;
