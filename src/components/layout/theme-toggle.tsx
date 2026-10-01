@@ -18,12 +18,12 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label="Toggle colour theme"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       className={cn(
-        "inline-flex size-9 items-center justify-center border border-line text-fg-muted transition-colors hover:border-accent hover:text-accent",
+        "inline-flex size-9 items-center justify-center rounded-full text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg",
         className,
       )}
     >
-      <Sun className="hidden size-4 dark:block" strokeWidth={1.6} />
-      <Moon className="size-4 dark:hidden" strokeWidth={1.6} />
+      <Sun className="hidden size-4 dark:block" strokeWidth={1.7} />
+      <Moon className="size-4 dark:hidden" strokeWidth={1.7} />
     </button>
   );
 }

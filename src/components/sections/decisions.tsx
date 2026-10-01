@@ -12,7 +12,7 @@ export function Decisions() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   return (
-    <Section id="decisions" className="bg-bg-subtle/50">
+    <Section id="decisions">
       <SectionHeader
         index="04"
         title="Decision log"
@@ -38,7 +38,7 @@ export function Decisions() {
                   >
                     <span
                       className={cn(
-                        "label w-[4.5rem] shrink-0 pt-1.5 whitespace-nowrap transition-colors",
+                        "label w-[4.5rem] shrink-0 pt-2 whitespace-nowrap transition-colors",
                         isOpen ? "text-accent" : "text-fg-subtle",
                       )}
                     >
@@ -56,17 +56,17 @@ export function Decisions() {
                       >
                         {d.title}
                       </span>
-                      <span className="label mt-2.5 block text-fg-subtle">
+                      <span className="mt-2 block text-[13px] text-fg-muted">
                         {d.project} · {d.year}
                       </span>
                     </span>
 
                     {d.metric ? (
                       <span className="hidden shrink-0 pt-0.5 text-right md:block">
-                        <span className="block text-xl font-medium tracking-tight text-accent tabular-nums">
+                        <span className="block text-xl font-medium tracking-tight tabular-nums">
                           {d.metric.value}
                         </span>
-                        <span className="label mt-1 block text-fg-subtle">
+                        <span className="mt-1 block text-xs text-fg-subtle">
                           {d.metric.label}
                         </span>
                       </span>
@@ -75,10 +75,10 @@ export function Decisions() {
                     <span
                       aria-hidden
                       className={cn(
-                        "mt-0.5 inline-flex size-8 shrink-0 items-center justify-center border transition-colors",
+                        "mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-full border transition-[border-color,color,transform,background-color] duration-300",
                         isOpen
-                          ? "border-accent text-accent"
-                          : "border-line text-fg-subtle group-hover:border-accent group-hover:text-accent",
+                          ? "rotate-180 border-accent bg-accent text-accent-fg"
+                          : "border-line text-fg-subtle group-hover:border-fg group-hover:text-fg",
                       )}
                     >
                       {isOpen ? (
@@ -95,11 +95,13 @@ export function Decisions() {
                   inert={!isOpen}
                   className={cn(
                     "grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0",
                   )}
                 >
                   <div className="overflow-hidden">
-                    <div className="grid gap-8 pb-10 sm:pl-24 lg:grid-cols-2 lg:gap-12">
+                    <div className="grid gap-8 pb-10 sm:pl-[6rem] lg:grid-cols-2 lg:gap-12">
                       <div className="space-y-8">
                         <Block label="Context">{d.context}</Block>
 
@@ -114,10 +116,10 @@ export function Decisions() {
                                 <li
                                   key={o.label}
                                   className={cn(
-                                    "border-l-2 pl-4",
+                                    "rounded-xl border p-4",
                                     chosen
-                                      ? "border-accent"
-                                      : "border-line-strong",
+                                      ? "border-accent-line bg-accent-soft"
+                                      : "border-line",
                                   )}
                                 >
                                   <p className="flex items-start gap-2 text-[14px] font-medium">
@@ -160,7 +162,7 @@ export function Decisions() {
                           {d.tags.map((t) => (
                             <li
                               key={t}
-                              className="border border-line px-2 py-1 font-mono text-[10px] tracking-[0.08em] text-fg-subtle uppercase"
+                              className="rounded-full border border-line px-2.5 py-1 text-[11px] text-fg-subtle"
                             >
                               {t}
                             </li>
@@ -170,7 +172,6 @@ export function Decisions() {
                     </div>
                   </div>
                 </div>
-
               </div>
             </Reveal>
           );

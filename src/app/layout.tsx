@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 
 import { siteConfig, socials } from "@/content/site";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { GridLines } from "@/components/layout/grid-lines";
-import { ScrollProgress } from "@/components/layout/scroll-progress";
+import { Backdrop } from "@/components/layout/backdrop";
 
 import "./globals.css";
 
@@ -19,6 +18,16 @@ const sans = Geist({
 const mono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+/* Display serif for the hero and section titles. Optical size axis is
+   included so large settings get the high-contrast cut. */
+const display = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
   display: "swap",
 });
 
@@ -71,8 +80,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbfbfa" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f5f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0c10" },
   ],
   colorScheme: "dark light",
 };
@@ -108,8 +117,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className={`${sans.variable} ${mono.variable} antialiased`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      // Font variables live on <html> so the theme tokens in :root can
+      // resolve them — on <body> they'd be invalid at the root level.
+      className={`${sans.variable} ${mono.variable} ${display.variable}`}
+    >
+      <body className="antialiased">
         {/* Runs during parse, before first paint. Scroll reveals start hidden
             only when JS is available to reveal them again. */}
         <script
@@ -125,13 +141,12 @@ export default function RootLayout({
         >
           <a
             href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:border focus:border-accent focus:bg-bg focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-full focus:border focus:border-accent focus:bg-bg focus:px-4 focus:py-2 focus:text-sm focus:font-medium"
           >
             Skip to content
           </a>
 
-          <ScrollProgress />
-          <GridLines />
+          <Backdrop />
           <Header />
 
           <main id="main" className="relative z-10">
@@ -139,7 +154,6 @@ export default function RootLayout({
           </main>
 
           <Footer />
-
         </ThemeProvider>
 
         <script

@@ -7,14 +7,13 @@ export default function NotFound() {
   return (
     <div className="flex min-h-[80svh] items-center pt-28 pb-24">
       <Container>
-        <div className="max-w-xl border-t border-line pt-6">
+        <div className="max-w-xl border-t border-line pt-7">
           <div className="flex items-center gap-3">
             <span className="label text-accent">404</span>
-            <span aria-hidden className="h-px w-10 bg-line-strong" />
             <span className="label text-fg-subtle">Not found</span>
           </div>
 
-          <h1 className="mt-7 text-headline font-medium">
+          <h1 className="font-display mt-7 text-headline font-normal">
             This route doesn&rsquo;t exist.
           </h1>
 
@@ -25,7 +24,7 @@ export default function NotFound() {
 
           <div className="mt-9 flex flex-wrap gap-3">
             <ActionLink href="/" variant="primary">
-              <ArrowLeft className="size-3.5" strokeWidth={2} />
+              <ArrowLeft className="size-4" strokeWidth={2} />
               Back home
             </ActionLink>
             <ActionLink href="/#work" variant="outline">

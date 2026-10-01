@@ -22,7 +22,7 @@ export function ProjectCover({
         sizes={sizes}
         priority={priority}
         className={cn(
-          "object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]",
+          "object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]",
           className,
         )}
       />
@@ -39,11 +39,11 @@ export function ProjectCover({
     >
       <div
         aria-hidden
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-25"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,.45) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.45) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
+            "radial-gradient(rgba(255,255,255,.5) 1px, transparent 1.3px)",
+          backgroundSize: "22px 22px",
         }}
       />
       <div
@@ -57,16 +57,16 @@ export function ProjectCover({
 
       <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-7">
         <div className="flex items-center justify-between gap-3">
-          <span className="font-mono text-[10px] tracking-[0.18em] text-white/75 uppercase">
+          <span className="font-mono text-[10px] tracking-[0.16em] text-white/80 uppercase">
             {project.kind}
           </span>
-          <span className="font-mono text-[10px] tracking-[0.18em] text-white/55 uppercase">
+          <span className="font-mono text-[10px] tracking-[0.16em] text-white/60 uppercase">
             {project.year}
           </span>
         </div>
 
         <div>
-          <span className="block max-w-[12ch] text-3xl leading-[0.95] font-medium tracking-tight text-white sm:text-5xl">
+          <span className="font-display block max-w-[12ch] text-4xl leading-[0.95] font-normal text-white sm:text-6xl">
             {project.title}
           </span>
 
@@ -78,7 +78,7 @@ export function ProjectCover({
             {Array.from({ length: 48 }).map((_, i) => (
               <span
                 key={i}
-                className="w-[3px] bg-white"
+                className="w-[3px] rounded-full bg-white"
                 style={{
                   height: `${18 + Math.sin(i * 0.7) * 10 + (i % 5) * 3}%`,
                 }}

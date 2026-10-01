@@ -16,33 +16,42 @@ export default async function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0a0a0b",
+          background: "#0b0c10",
           backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
+            "radial-gradient(rgba(241,239,232,0.09) 1.5px, transparent 2px)",
+          backgroundSize: "28px 28px",
           padding: 72,
-          fontFamily: "sans-serif",
+          fontFamily: "Georgia, serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ width: 10, height: 10, background: "#ff6a2b" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <div
             style={{
-              color: "#ff6a2b",
+              width: 12,
+              height: 12,
+              borderRadius: 999,
+              background: "#8d9dff",
+            }}
+          />
+          <div
+            style={{
+              color: "#8d9dff",
               fontSize: 22,
-              letterSpacing: 6,
+              letterSpacing: 4,
               textTransform: "uppercase",
+              fontFamily: "monospace",
             }}
           >
             Available
           </div>
-          <div style={{ width: 48, height: 1, background: "#33333b" }} />
+          <div style={{ width: 40, height: 1, background: "#343846" }} />
           <div
             style={{
-              color: "#6a6a74",
+              color: "#7f817f",
               fontSize: 22,
-              letterSpacing: 6,
+              letterSpacing: 4,
               textTransform: "uppercase",
+              fontFamily: "monospace",
             }}
           >
             Dhaka · GMT+6
@@ -52,24 +61,25 @@ export default async function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              color: "#f2f2f3",
-              fontSize: 104,
+              color: "#f1efe8",
+              fontSize: 112,
               lineHeight: 1,
-              letterSpacing: -4,
-              fontWeight: 600,
+              letterSpacing: -2,
+              fontWeight: 400,
             }}
           >
             Mohammad Ali
           </div>
           <div
             style={{
-              color: "#9b9ba4",
+              color: "#a3a39c",
               fontSize: 44,
-              marginTop: 20,
-              letterSpacing: -1,
+              marginTop: 24,
+              letterSpacing: -0.5,
+              fontFamily: "sans-serif",
             }}
           >
-            Full-Stack Developer &amp; Team Lead
+            Full-stack developer &amp; team lead
           </div>
         </div>
 
@@ -78,23 +88,15 @@ export default async function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid #222227",
+            borderTop: "1px solid #22252e",
             paddingTop: 28,
+            fontFamily: "sans-serif",
           }}
         >
-          <div
-            style={{
-              color: "#6a6a74",
-              fontSize: 24,
-              letterSpacing: 4,
-              textTransform: "uppercase",
-            }}
-          >
+          <div style={{ color: "#7f817f", fontSize: 24 }}>
             TypeScript · React · Next.js · Node.js · AWS
           </div>
-          <div style={{ color: "#ff6a2b", fontSize: 24, letterSpacing: 2 }}>
-            mdali.dev
-          </div>
+          <div style={{ color: "#8d9dff", fontSize: 24 }}>mdali.dev</div>
         </div>
       </div>
     ),

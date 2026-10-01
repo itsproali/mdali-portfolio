@@ -14,34 +14,34 @@ export function Experience() {
         meta={`${experience.length} roles · since 2022`}
       />
 
-      <ol className="mt-12 border-t border-line">
-        {experience.map((job) => (
-          <Reveal as="li" key={job.id} delay={0.04}>
-            <article className="group grid gap-x-8 gap-y-3 border-b border-line py-7 md:grid-cols-[minmax(0,12rem)_1fr]">
+      <ol className="mt-12">
+        {experience.map((job, i) => (
+          <Reveal as="li" key={job.id} delay={Math.min(i * 0.05, 0.15)}>
+            <article className="group relative grid gap-x-10 gap-y-3 border-t border-line py-7 md:grid-cols-[minmax(0,11rem)_1fr]">
               {/* Period */}
-              <div className="flex items-start gap-3">
+              <div className="flex items-center gap-3 md:items-start">
                 <span
                   aria-hidden
                   className={cn(
-                    "mt-[0.3rem] size-1.5 shrink-0 rounded-full transition-colors",
+                    "size-1.5 shrink-0 rounded-full transition-colors md:mt-[0.45rem]",
                     job.current
                       ? "bg-accent"
-                      : "bg-line-strong group-hover:bg-accent",
+                      : "bg-line-strong group-hover:bg-fg-muted",
                   )}
                 />
-                <p className="label text-fg">
+                <p className="text-sm text-fg-muted tabular-nums md:pt-0.5">
                   {job.from} — {job.to}
                 </p>
               </div>
 
               {/* Body */}
               <div>
-                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                   <h3 className="text-lg font-medium tracking-tight sm:text-xl">
                     {job.role}
                   </h3>
                   {job.current && (
-                    <span className="border border-accent-line bg-accent-soft px-1.5 py-0.5 font-mono text-[9px] tracking-[0.12em] text-accent uppercase">
+                    <span className="rounded-full border border-accent-line bg-accent-soft px-2 py-0.5 text-[11px] font-medium text-accent">
                       Current
                     </span>
                   )}
@@ -53,13 +53,13 @@ export function Experience() {
                       href={job.companyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-accent transition-opacity hover:opacity-75"
+                      className="inline-flex items-center gap-1 font-medium text-fg transition-colors hover:text-accent"
                     >
                       {job.company}
                       <ArrowUpRight className="size-3" strokeWidth={2} />
                     </a>
                   ) : (
-                    <span className="text-fg-muted">{job.company}</span>
+                    <span className="font-medium text-fg">{job.company}</span>
                   )}
                   <span className="text-fg-subtle">
                     · {job.location} · {job.mode}
@@ -70,9 +70,16 @@ export function Experience() {
                   {job.summary}
                 </p>
 
-                <p className="mt-3 font-mono text-[10px] tracking-[0.1em] text-fg-subtle uppercase">
-                  {job.stack.join(" · ")}
-                </p>
+                <ul className="mt-4 flex flex-wrap gap-1.5">
+                  {job.stack.map((s) => (
+                    <li
+                      key={s}
+                      className="rounded-full border border-line px-2.5 py-1 text-[11px] text-fg-subtle"
+                    >
+                      {s}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </article>
           </Reveal>
@@ -81,21 +88,21 @@ export function Experience() {
 
       {/* Education */}
       <Reveal delay={0.08}>
-        <div className="mt-12">
-          <p className="label text-fg-subtle">Education</p>
+        <div className="mt-6 grid gap-x-10 gap-y-3 border-t border-line pt-7 md:grid-cols-[minmax(0,11rem)_1fr]">
+          <p className="label pt-1 text-fg-subtle md:pl-[1.125rem]">Education</p>
 
-          <ul className="mt-4 border-t border-line">
+          <ul className="divide-y divide-line">
             {education.map((ed) => (
               <li
                 key={ed.id}
-                className="grid gap-x-8 gap-y-1 border-b border-line py-4 md:grid-cols-[minmax(0,12rem)_1fr]"
+                className="flex flex-col gap-1 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
               >
-                <span className="label pt-0.5 text-fg-subtle md:pl-[1.125rem]">
-                  {ed.from === ed.to ? ed.from : `${ed.from} — ${ed.to}`}
-                </span>
                 <span className="text-sm">
                   <span className="font-medium tracking-tight">{ed.title}</span>
                   <span className="text-fg-muted"> · {ed.institution}</span>
+                </span>
+                <span className="shrink-0 text-[13px] text-fg-subtle tabular-nums">
+                  {ed.from === ed.to ? ed.from : `${ed.from} — ${ed.to}`}
                 </span>
               </li>
             ))}

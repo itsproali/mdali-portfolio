@@ -27,6 +27,7 @@ import {
   siRedux,
   siSass,
   siShadcnui,
+  siSst,
   siStripe,
   siTailwindcss,
   siTypescript,
@@ -35,11 +36,15 @@ import {
   type SimpleIcon,
 } from "simple-icons";
 
+import { awsMark, plasmoMark, remotionMark, type Mark } from "./brand-marks";
+
 export type Skill = {
   name: string;
-  /** Brand mark from simple-icons. When absent, `mark` is drawn as a monogram. */
+  /** Brand mark from simple-icons. */
   icon?: SimpleIcon;
-  /** Short monogram for tools that have no mark in simple-icons. */
+  /** Custom vector for brands simple-icons doesn't carry (see brand-marks.ts). */
+  custom?: Mark;
+  /** Short monogram, drawn only when there is no vector at all. */
   mark?: string;
 };
 
@@ -57,9 +62,9 @@ const next: Skill = { name: "Next.js", icon: siNextdotjs };
 const node: Skill = { name: "Node.js", icon: siNodedotjs };
 const nest: Skill = { name: "NestJS", icon: siNestjs };
 const postgres: Skill = { name: "PostgreSQL", icon: siPostgresql };
-// simple-icons carries no AWS or Remotion marks, so these draw as monograms.
-const aws: Skill = { name: "AWS", mark: "AWS" };
-const remotion: Skill = { name: "Remotion", mark: "Re" };
+// simple-icons carries no AWS or Remotion marks; these come from brand-marks.ts.
+const aws: Skill = { name: "AWS", custom: awsMark };
+const remotion: Skill = { name: "Remotion", custom: remotionMark };
 
 /** The headline eight — rendered as large tiles at the top of the section. */
 export const coreSkills: (Skill & { role: string })[] = [
@@ -83,8 +88,6 @@ export const skillGroups: SkillGroup[] = [
       next,
       { name: "Tailwind CSS", icon: siTailwindcss },
       { name: "Redux Toolkit", icon: siRedux },
-      { name: "React Query", icon: siReactquery },
-      { name: "React Hook Form", icon: siReacthookform },
       { name: "Framer Motion", icon: siFramer },
       { name: "Material UI", icon: siMui },
       { name: "shadcn/ui", icon: siShadcnui },
@@ -98,9 +101,9 @@ export const skillGroups: SkillGroup[] = [
       node,
       nest,
       { name: "Express", icon: siExpress },
-      { name: "NextAuth", mark: "NA" },
+      { name: "SST", icon: siSst },
       { name: "Zod", icon: siZod },
-      { name: "Stripe", icon: siStripe },
+      { name: "Stripe", icon: siStripe }
     ],
   },
   {
@@ -132,7 +135,7 @@ export const skillGroups: SkillGroup[] = [
     title: "Specialised",
     items: [
       remotion,
-      { name: "Plasmo", mark: "Pl" },
+      { name: "Plasmo", custom: plasmoMark },
       { name: "Chrome Extensions", icon: siGooglechrome },
       { name: "FFmpeg", icon: siFfmpeg },
       { name: "Cloudinary", icon: siCloudinary },

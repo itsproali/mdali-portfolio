@@ -14,7 +14,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={cn("relative scroll-mt-20 py-16 sm:py-24 lg:py-28", className)}
+      className={cn("relative scroll-mt-24 py-20 sm:py-28 lg:py-32", className)}
     >
       <Container>{children}</Container>
     </section>
@@ -22,8 +22,8 @@ export function Section({
 }
 
 /**
- * Index + short title on one baseline, optional meta on the right, and an
- * optional single-line description. Long headline sentences live elsewhere.
+ * Mono index, serif title, optional one-line description and a right-aligned
+ * meta string. Deliberately low on words — the content below does the talking.
  */
 export function SectionHeader({
   index,
@@ -39,12 +39,14 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <Reveal className={cn("border-t border-line pt-6", className)}>
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <h2 className="flex items-baseline gap-4 text-3xl font-medium tracking-tight sm:text-4xl">
+    <Reveal className={cn("border-t border-line pt-7", className)}>
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
+        <div className="flex items-baseline gap-4">
           <span className="label text-accent">{index}</span>
-          {title}
-        </h2>
+          <h2 className="font-display text-title font-normal text-fg">
+            {title}
+          </h2>
+        </div>
         {meta ? <span className="label text-fg-subtle">{meta}</span> : null}
       </div>
 

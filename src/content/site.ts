@@ -1,3 +1,7 @@
+import { siFacebook, siGithub, siX } from "simple-icons";
+
+import { linkedinMark } from "./brand-marks";
+
 export const siteConfig = {
   name: "Mohammad Ali",
   shortName: "Ali",
@@ -27,17 +31,29 @@ export const siteConfig = {
 } as const;
 
 export const socials = [
-  { label: "GitHub", handle: "@itsproali", href: "https://github.com/itsproali" },
+  {
+    label: "GitHub",
+    handle: "@itsproali",
+    href: "https://github.com/itsproali",
+    icon: siGithub,
+  },
   {
     label: "LinkedIn",
     handle: "in/itsproali",
     href: "https://www.linkedin.com/in/itsproali/",
+    custom: linkedinMark,
   },
-  { label: "X", handle: "@itsproali", href: "https://twitter.com/itsproali" },
+  {
+    label: "X",
+    handle: "@itsproali",
+    href: "https://twitter.com/itsproali",
+    icon: siX,
+  },
   {
     label: "Facebook",
     handle: "@itsproali",
     href: "https://www.facebook.com/itsproali/",
+    icon: siFacebook,
   },
 ] as const;
 
@@ -46,15 +62,22 @@ export const navItems = [
   { id: "work", label: "Work", index: "02" },
   { id: "experience", label: "Experience", index: "03" },
   { id: "decisions", label: "Decisions", index: "04" },
-  { id: "services", label: "Services", index: "05" },
-  { id: "references", label: "References", index: "06" },
-  { id: "writing", label: "Writing", index: "07" },
-  { id: "contact", label: "Contact", index: "08" },
+  { id: "references", label: "References", index: "05" },
+  { id: "writing", label: "Writing", index: "06" },
+  { id: "contact", label: "Contact", index: "07" },
 ] as const;
 
+/** The subset shown in the floating header. The rail shows everything. */
+export const headerLinks = ["skills", "work", "experience", "writing"] as const;
+
+/**
+ * Headline numbers about Ali as an engineer — not project metrics. Those
+ * (templates shipped, render cost) live on the VidRush card and in the
+ * decision log where they have context.
+ */
 export const stats = [
   { value: 4, suffix: "+", label: "Years shipping", note: "since 2022" },
   { value: 40, suffix: "+", label: "Projects delivered", note: "web + extensions" },
-  { value: 500, suffix: "+", label: "Templates shipped", note: "VidRush catalog" },
-  { value: 50, suffix: "%", label: "Render cost cut", note: "AWS pipeline" },
+  { value: 21, suffix: "+", label: "Happy clients", note: "freelance + contract" },
+  { value: 5, suffix: "", label: "Engineers led", note: "recent team · VidRush AI" },
 ] as const;

@@ -11,9 +11,9 @@ export function Footer() {
   return (
     <footer className="relative z-10 border-t border-line">
       <Container>
-        <div className="flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-base font-medium tracking-tight">
+            <p className="font-display text-2xl font-normal">
               {siteConfig.name}
             </p>
             <p className="mt-1 text-sm text-fg-muted">{siteConfig.role}</p>
@@ -21,7 +21,7 @@ export function Footer() {
 
           <nav
             aria-label="Elsewhere"
-            className="flex flex-wrap items-center gap-x-6 gap-y-2"
+            className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
           >
             {socials.map((s) => (
               <a
@@ -29,14 +29,14 @@ export function Footer() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="label text-fg-muted transition-colors hover:text-accent"
+                className="text-fg-muted transition-colors hover:text-fg"
               >
                 {s.label}
               </a>
             ))}
             <Link
               href="/blog"
-              className="label text-fg-muted transition-colors hover:text-accent"
+              className="text-fg-muted transition-colors hover:text-fg"
             >
               Writing
             </Link>
@@ -44,20 +44,20 @@ export function Footer() {
               href={siteConfig.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="label inline-flex items-center gap-1 text-fg-muted transition-colors hover:text-accent"
+              className="inline-flex items-center gap-1 text-fg-muted transition-colors hover:text-fg"
             >
               Resume
-              <ArrowUpRight className="size-3" strokeWidth={2} />
+              <ArrowUpRight className="size-3.5" strokeWidth={2} />
             </a>
           </nav>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-line py-5 font-mono text-[11px] tracking-[0.1em] text-fg-subtle uppercase sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 border-t border-line py-5 font-mono text-[11px] tracking-[0.08em] text-fg-subtle sm:flex-row sm:items-center sm:justify-between">
           <span>
             © {year} {siteConfig.name} ·{" "}
             <a
               href={`mailto:${siteConfig.email}`}
-              className="normal-case tracking-normal transition-colors hover:text-accent"
+              className="transition-colors hover:text-fg"
             >
               {siteConfig.email}
             </a>

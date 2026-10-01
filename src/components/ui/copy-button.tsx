@@ -21,12 +21,12 @@ export function CopyButton({ value, label }: { value: string; label: string }) {
       type="button"
       onClick={copy}
       aria-label={copied ? `${label} copied` : `Copy ${label}`}
-      className="inline-flex size-7 shrink-0 items-center justify-center border border-line text-fg-subtle transition-colors hover:border-accent hover:text-accent"
+      className="inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-line text-fg-subtle transition-colors hover:border-fg hover:text-fg"
     >
       {copied ? (
-        <Check className="size-3 text-accent" strokeWidth={2.5} />
+        <Check className="size-3.5 text-accent" strokeWidth={2.5} />
       ) : (
-        <Copy className="size-3" strokeWidth={2} />
+        <Copy className="size-3.5" strokeWidth={2} />
       )}
     </button>
   );

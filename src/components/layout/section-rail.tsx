@@ -6,15 +6,16 @@ import { cn } from "@/lib/utils";
 
 const ids = navItems.map((n) => n.id);
 
+/** Right-edge section indicator for wide screens. */
 export function SectionRail() {
   const active = useActiveSection(ids);
 
   return (
     <nav
       aria-label="Section navigation"
-      className="fixed top-1/2 right-6 z-40 hidden -translate-y-1/2 xl:block"
+      className="fixed top-1/2 right-5 z-40 hidden -translate-y-1/2 xl:block"
     >
-      <ul className="flex flex-col items-end gap-1">
+      <ul className="flex flex-col items-end gap-0.5">
         {navItems.map((item) => {
           const isActive = active === item.id;
 
@@ -26,18 +27,18 @@ export function SectionRail() {
               >
                 <span
                   className={cn(
-                    "label opacity-0 transition-all duration-300 group-hover:opacity-100",
-                    isActive ? "text-accent 2xl:opacity-100" : "text-fg-subtle",
+                    "label translate-x-1 opacity-0 transition-[opacity,transform,color] duration-300 group-hover:translate-x-0 group-hover:opacity-100",
+                    isActive ? "text-fg" : "text-fg-subtle",
                   )}
                 >
-                  {item.index} {item.label}
+                  {item.label}
                 </span>
                 <span
                   className={cn(
-                    "h-px transition-all duration-300",
+                    "block rounded-full transition-[width,height,background-color] duration-300",
                     isActive
-                      ? "w-7 bg-accent"
-                      : "w-3.5 bg-line-strong group-hover:w-5 group-hover:bg-fg-muted",
+                      ? "h-1.5 w-1.5 bg-accent"
+                      : "h-1 w-1 bg-line-strong group-hover:bg-fg-muted",
                   )}
                 />
               </a>

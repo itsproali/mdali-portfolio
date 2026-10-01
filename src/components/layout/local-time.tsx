@@ -10,7 +10,12 @@ const fmt = new Intl.DateTimeFormat("en-GB", {
   timeZone: "Asia/Dhaka",
 });
 
-export function LocalTime() {
+export function LocalTime({
+  zoneClassName = "text-fg-subtle",
+}: {
+  /** Styles the trailing "Dhaka" so it can sit on light or dark surfaces. */
+  zoneClassName?: string;
+}) {
   const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
@@ -22,7 +27,7 @@ export function LocalTime() {
 
   return (
     <span className="tabular-nums">
-      {time ?? "--:--:--"} <span className="text-fg-subtle">Dhaka</span>
+      {time ?? "--:--:--"} <span className={zoneClassName}>Dhaka</span>
     </span>
   );
 }

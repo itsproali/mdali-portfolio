@@ -6,44 +6,62 @@ export type Service = {
   deliverables: string[];
 };
 
+/**
+ * What Ali takes on. Titles surface as the "Open to" chips in the contact
+ * section; summaries and deliverables are kept for a future detail view.
+ */
 export const services: Service[] = [
   {
-    id: "fullstack",
+    id: "saas",
     index: "01",
-    title: "Full-Stack Product Build",
+    title: "SaaS Development",
     summary:
-      "End-to-end delivery of a web product — interface, API, database and deployment — as one coherent TypeScript codebase rather than a stack of disconnected parts.",
+      "A subscription product built end to end — marketing site, app, API, billing and deployment — as one typed Next.js and Node codebase that's ready to take paying users.",
     deliverables: [
-      "Next.js app with typed, server-first data access",
+      "Next.js app with server-first, typed data access",
       "REST API in Node.js or NestJS",
-      "PostgreSQL or MongoDB schema and migrations",
-      "Auth, payments and third-party integrations",
+      "PostgreSQL + Prisma schema and migrations",
+      "Auth (NextAuth), Stripe subscriptions and webhooks",
       "Dockerised deploy on AWS or Vercel with CI",
     ],
   },
   {
-    id: "frontend",
+    id: "video",
     index: "02",
-    title: "Frontend Engineering",
+    title: "AI Video & Rendering Pipelines",
     summary:
-      "Interfaces that hold up in production: accessible, responsive down to 320px, fast on real devices, and built from components your team can keep extending.",
+      "Programmatic video at scale: Remotion template systems, distributed cloud rendering and the tooling around them — the work behind a 500-template catalog and a 50% render-cost cut.",
     deliverables: [
-      "Design-to-code with pixel discipline",
-      "Reusable component library and design tokens",
-      "Core Web Vitals and bundle-size work",
-      "Motion and interaction design",
-      "Chrome extensions (MV3, Plasmo)",
+      "Composable Remotion motion component libraries",
+      "Template systems driven by data and AI output",
+      "Parallel rendering on AWS Lambda with S3 + FFmpeg",
+      "Render cost and wall-clock optimisation",
+      "Browser-based editors with live preview",
+    ],
+  },
+  {
+    id: "extensions",
+    index: "03",
+    title: "Browser Extensions",
+    summary:
+      "Production Chrome extensions on Manifest V3 — in-page tooling, side panels and background workers that talk to your API, shipped through the Web Store.",
+    deliverables: [
+      "MV3 extensions built with Plasmo and React",
+      "Content scripts, side panels and popups",
+      "Background service workers and messaging",
+      "Auth and sync with an existing backend",
+      "Web Store listing, review and release process",
     ],
   },
   {
     id: "maintenance",
-    index: "03",
+    index: "04",
     title: "Rescue & Maintenance",
     summary:
       "Taking over an existing codebase that's slow, brittle or half-finished — stabilising it, paying down the debt that matters, and keeping it shipping.",
     deliverables: [
       "Codebase audit with a prioritised fix list",
-      "Performance and render-cost optimisation",
+      "Performance and infrastructure-cost optimisation",
       "Dependency, security and framework upgrades",
       "CI/CD setup and release process",
       "Ongoing retainer support",

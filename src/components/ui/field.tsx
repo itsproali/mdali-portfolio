@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 
 const control =
-  "w-full border border-line bg-transparent px-3 py-2.5 text-sm text-fg " +
-  "placeholder:text-fg-subtle transition-colors focus:border-accent focus:outline-none " +
+  "w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-fg " +
+  "placeholder:text-fg-subtle transition-[border-color,box-shadow] focus:border-accent focus:outline-none focus:ring-3 focus:ring-accent/15 " +
   "disabled:cursor-not-allowed disabled:opacity-50";
 
 export function Field({
@@ -18,9 +18,14 @@ export function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="label flex items-baseline gap-2 text-fg-subtle">
+      <label
+        htmlFor={id}
+        className="flex items-baseline gap-2 text-[13px] font-medium text-fg"
+      >
         {label}
-        {hint ? <span className="normal-case opacity-70">{hint}</span> : null}
+        {hint ? (
+          <span className="text-xs font-normal text-fg-subtle">{hint}</span>
+        ) : null}
       </label>
       <div className="mt-2">{children}</div>
     </div>

@@ -45,16 +45,16 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <article className="pt-28 pb-24 sm:pt-32">
+    <article className="pt-28 pb-24 sm:pt-36">
       <Container>
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Link
               href="/blog"
-              className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] text-fg-subtle uppercase transition-colors hover:text-accent"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-fg-muted transition-colors hover:text-fg"
             >
               <ArrowLeft
-                className="size-3.5 transition-transform group-hover:-translate-x-0.5"
+                className="size-4 transition-transform group-hover:-translate-x-0.5"
                 strokeWidth={2}
               />
               Writing
@@ -62,22 +62,21 @@ export default async function BlogPostPage({ params }: Props) {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <header className="mt-10 border-t border-line pt-6">
+            <header className="mt-10 border-t border-line pt-7">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                 <span className="label text-accent">
                   {formatDate(post.date)}
                 </span>
-                <span aria-hidden className="h-px w-6 bg-line-strong" />
                 <span className="label text-fg-subtle">
                   {post.readingTime} min read
                 </span>
               </div>
 
-              <h1 className="mt-6 text-3xl leading-[1.08] font-medium tracking-tight text-balance sm:text-4xl lg:text-5xl">
+              <h1 className="font-display mt-6 text-headline font-normal text-balance">
                 {post.title}
               </h1>
 
-              <p className="mt-5 text-base leading-relaxed text-fg-muted sm:text-lg">
+              <p className="mt-6 text-base leading-relaxed text-fg-muted sm:text-lg">
                 {post.summary}
               </p>
 
@@ -85,7 +84,7 @@ export default async function BlogPostPage({ params }: Props) {
                 {post.tags.map((t) => (
                   <li
                     key={t}
-                    className="border border-line px-2 py-1 font-mono text-[10px] tracking-[0.08em] text-fg-subtle uppercase"
+                    className="rounded-full border border-line px-2.5 py-1 text-[11px] text-fg-subtle"
                   >
                     {t}
                   </li>

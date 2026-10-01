@@ -20,14 +20,13 @@ export default function Error({
   return (
     <div className="flex min-h-[80svh] items-center pt-28 pb-24">
       <Container>
-        <div className="max-w-xl border-t border-line pt-6">
+        <div className="max-w-xl border-t border-line pt-7">
           <div className="flex items-center gap-3">
             <span className="label text-accent">500</span>
-            <span aria-hidden className="h-px w-10 bg-line-strong" />
             <span className="label text-fg-subtle">Unhandled</span>
           </div>
 
-          <h1 className="mt-7 text-headline font-medium">
+          <h1 className="font-display mt-7 text-headline font-normal">
             Something broke on my end.
           </h1>
 
@@ -44,7 +43,7 @@ export default function Error({
 
           <div className="mt-9 flex flex-wrap gap-3">
             <ActionButton onClick={reset}>
-              <RotateCw className="size-3.5" strokeWidth={2} />
+              <RotateCw className="size-4" strokeWidth={2} />
               Try again
             </ActionButton>
             <ActionLink href="/" variant="outline">
