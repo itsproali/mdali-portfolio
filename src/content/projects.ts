@@ -14,14 +14,66 @@ export type Project = {
   gallery?: string[];
   liveUrl?: string;
   repoUrl?: string;
+  /** Short badge for work that stands apart, e.g. a product I built and shipped myself. */
+  highlight?: string;
   /** Accent used for the generative cover when there is no thumbnail. */
   cover: { from: string; to: string };
 };
 
 export const projects: Project[] = [
   {
-    slug: "vidrush-ai",
+    slug: "makitro",
     index: "01",
+    title: "Makitro",
+    kind: "macOS Menu-Bar App",
+    year: "2026",
+    role: "Creator: design, native app, website and release",
+    tagline:
+      "The small fixes macOS forgot: clipboard history, a colour picker, classic mouse scrolling and keyboard cleaning in one native menu-bar app.",
+    description: [
+      "Makitro replaces a handful of single-purpose menu-bar apps with one small, native toolkit. Clipboard history, a colour picker, a scroll reverser for external mice and a keyboard-cleaning lock all live behind one icon, with a PowerToys-style window for settings. Window management and external-monitor controls are coming as a one-time Pro upgrade; everything free today stays free.",
+      "This one is mine from idea to release: I designed it, wrote the native macOS app, and ship it myself as a DMG and a Homebrew cask. The app is SwiftUI with AppKit and CoreGraphics underneath for system integration, GRDB for local history and Sparkle for updates. It's private by design: nothing leaves the Mac, history stays out of screen shares and Time Machine, password-manager copies are skipped, and Pro licenses are checked offline. The marketing site is Next.js, with a Cloudflare Worker as the license server.",
+    ],
+    stack: [
+      "Swift",
+      "SwiftUI",
+      "AppKit",
+      "GRDB",
+      "Sparkle",
+      "Next.js",
+      "Cloudflare Workers",
+    ],
+    features: [
+      "Clipboard history for text, links and images, searchable from ⌃⌘V, pasting where you were typing",
+      "Colour picker that copies HEX, rgb() or hsl() without Screen Recording permission",
+      "Scroll reverser: classic wheel scrolling on the mouse, natural on the trackpad",
+      "Keyboard cleaning lock that unlocks itself after a timer or on sleep",
+      "Local-only by design: no account, no analytics, offline license checks",
+      "Automatic updates via Sparkle, shipped as a DMG and a Homebrew cask",
+    ],
+    metrics: [
+      { label: "Free utilities", value: "4" },
+      { label: "Data sent off the Mac", value: "None" },
+      { label: "Runs on", value: "macOS 14+" },
+    ],
+    thumbnail:
+      "https://res.cloudinary.com/itsproali/image/upload/Portfolio/projects/makitro_full.png",
+    gallery: [
+      "https://res.cloudinary.com/itsproali/image/upload/Portfolio/projects/makitro_1.png",
+      "https://res.cloudinary.com/itsproali/image/upload/Portfolio/projects/makitro_2.png",
+      "https://res.cloudinary.com/itsproali/image/upload/Portfolio/projects/makitro_3.png",
+      "https://res.cloudinary.com/itsproali/image/upload/Portfolio/projects/makitro_4.png",
+      "https://res.cloudinary.com/itsproali/image/upload/Portfolio/projects/makitro_5.png",
+      "https://res.cloudinary.com/itsproali/image/upload/Portfolio/projects/makitro_6.png",
+    ],
+    liveUrl: "https://makitro.mdali.dev",
+    repoUrl: "https://github.com/itsproali/makitro",
+    highlight: "My own product",
+    cover: { from: "#0EA5E9", to: "#0C4A6E" },
+  },
+  {
+    slug: "vidrush-ai",
+    index: "02",
     title: "VidRush AI",
     kind: "AI Video Platform",
     year: "2025—26",
@@ -59,7 +111,7 @@ export const projects: Project[] = [
   },
   {
     slug: "one-quality-solutions",
-    index: "02",
+    index: "03",
     title: "One Quality Solutions",
     kind: "Pharmaceutical QA Platform",
     year: "2023—24",
@@ -99,7 +151,7 @@ export const projects: Project[] = [
   },
   {
     slug: "mailrapido",
-    index: "03",
+    index: "04",
     title: "Mailrapido",
     kind: "Disposable Email Service",
     year: "2024",
@@ -140,7 +192,7 @@ export const projects: Project[] = [
   },
   {
     slug: "next-door-bd",
-    index: "04",
+    index: "05",
     title: "Next Door BD",
     kind: "E-commerce",
     year: "2023",
@@ -180,7 +232,7 @@ export const projects: Project[] = [
   },
   {
     slug: "jobs-ladder",
-    index: "05",
+    index: "06",
     title: "Job's Ladder",
     kind: "Recruitment Platform",
     year: "2022",

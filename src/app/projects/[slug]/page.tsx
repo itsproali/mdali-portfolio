@@ -10,6 +10,7 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { ActionLink } from "@/components/ui/action";
 import { ProjectCover } from "@/components/ui/project-cover";
+import { HighlightBadge } from "@/components/ui/project-card";
 import { BrandIcon } from "@/components/ui/brand-icon";
 import { siGithub } from "simple-icons";
 
@@ -104,6 +105,9 @@ export default async function ProjectPage({ params }: Props) {
             <div className="flex flex-wrap items-center gap-3">
               <span className="label text-accent">{project.index}</span>
               <span className="label text-fg-subtle">{project.kind}</span>
+              {project.highlight ? (
+                <HighlightBadge>{project.highlight}</HighlightBadge>
+              ) : null}
               <span className="label ml-auto text-fg-subtle">
                 {project.year}
               </span>

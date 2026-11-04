@@ -1,8 +1,18 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import type { Project } from "@/content/projects";
 import { ProjectCover } from "./project-cover";
+
+/** Accent pill for `project.highlight`, e.g. a product I built myself. */
+export function HighlightBadge({ children }: { children: ReactNode }) {
+  return (
+    <span className="rounded-full border border-accent-line bg-accent-soft px-2.5 py-1 text-[11px] font-medium text-accent">
+      {children}
+    </span>
+  );
+}
 
 /** Large card for the flagship project — cover on the right, story on the left. */
 export function FeaturedProjectCard({
@@ -18,7 +28,12 @@ export function FeaturedProjectCard({
       className="group relative grid overflow-hidden rounded-[1.25rem] border border-line bg-surface transition-[border-color,box-shadow] duration-300 hover:border-line-strong hover:shadow-soft lg:grid-cols-2"
     >
       <div className="flex flex-col p-6 sm:p-8 lg:p-10">
-        <span className="label text-accent">Featured</span>
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="label text-accent">Featured</span>
+          {project.highlight ? (
+            <HighlightBadge>{project.highlight}</HighlightBadge>
+          ) : null}
+        </div>
 
         <h3 className="font-display mt-5 text-3xl font-normal transition-colors group-hover:text-accent sm:text-4xl">
           {project.title}
@@ -79,9 +94,14 @@ export function ProjectCard({ project }: { project: Project }) {
 
       <div className="mt-4 flex items-start justify-between gap-4 px-1">
         <div className="min-w-0">
-          <h3 className="text-lg font-medium tracking-tight transition-colors group-hover:text-accent">
-            {project.title}
-          </h3>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-lg font-medium tracking-tight transition-colors group-hover:text-accent">
+              {project.title}
+            </h3>
+            {project.highlight ? (
+              <HighlightBadge>{project.highlight}</HighlightBadge>
+            ) : null}
+          </div>
           <p className="mt-1 text-[13px] text-fg-muted">
             {project.kind} · {project.year}
           </p>
